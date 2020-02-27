@@ -1,0 +1,29 @@
+<h2> {{ commits_n }} most recent commits are </h2>
+<table>
+    {% for commit in commits %}
+    <tr>
+        <td>
+            {{commit.text}}
+        </td>
+        <td>
+            {{ commit.created_at|date:"D d M Y" }} {{ commit.created_at|time:"H:i" }}
+        </td>
+    </tr>
+    {% endfor %}
+</table>
+
+<h2>  {{ words_n }} most frequent words are </h2>
+<table>
+    {% for wordcount in frequent_words %}
+    <tr>
+        <td>
+            {{wordcount.0}}
+        </td>
+        <td>
+            {{wordcount.1}}
+        </td>
+    </tr>
+    {% endfor %}
+</table>
+
+<h2>The most frequent hour in recent {{ commits_n }} commits is: {{ most_frequent_hour }}</h2>
