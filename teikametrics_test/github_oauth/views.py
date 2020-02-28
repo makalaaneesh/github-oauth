@@ -55,7 +55,6 @@ def dashboard(request):
     # Recent commits
     commits_n = 10
     recent_n_commits = github_api.get_recent_commits(commits_n)
-    print(recent_n_commits)
 
     # Frequent words
     wc = WordCounter()

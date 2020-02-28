@@ -44,6 +44,13 @@ class Commit(IHasText, IHasCreatedTime):
         self.created_at = datetime.strptime(created_at,
                                             datetime_format)
 
+    def __eq__(self, other):
+        return self.sha == other.sha \
+            and self.author == other.author \
+            and self.repo == other.repo \
+            and self.text == other.text \
+            and self.created_at == other.created_at
+
     def __repr__(self):
         return "{text} - {time}".format(text=self.get_text(),
                                         time=self.get_created_time())
