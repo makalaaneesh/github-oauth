@@ -3,7 +3,7 @@ A simple example of a webapp using github oauth to fetch recent commits and comp
 
 ## Setup
 1. Set up a virtualenv
-  `virtualenv venv`
+  `virtualenv venv` and activate `source venv/bin/activate`
 2. `pip install -r requirements.txt`
 3. Create a file `oauth_settings.py` under `teikametrics_test/github_oauth` with the following content
 ```
