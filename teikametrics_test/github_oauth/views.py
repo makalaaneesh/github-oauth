@@ -1,16 +1,16 @@
 from django.shortcuts import render, redirect
-from django.http import HttpResponse
 from .api import GithubApi
 from requests_oauthlib import OAuth2Session
 from .analytics import WordCounter, HourCounter
 from .oauth_settings import CLIENT_ID, CLIENT_SECRET, AUTHORIZATION_BASE_URL, TOKEN_URL
 
-# Create your views here.
+
 OAUTH_STATE = 'oauth_state'
 OAUTH_TOKEN = 'oauth_token'
 
+
 def index(request):
-    return HttpResponse("Hello, World!")
+    return redirect(authorize)
 
 
 def authorize(request):
@@ -42,7 +42,6 @@ def callback(request):
                                                          authorization_response=request.get_full_path())
     request.session[OAUTH_TOKEN] = access_token_info
     return redirect(dashboard)
-    # return HttpResponse("This is the callback.")
 
 
 def dashboard(request):
@@ -50,26 +49,12 @@ def dashboard(request):
     Return data that the user is interested in.
     This will use the access token to fetch resources from the github API
     """
-    # github_oauth_session = OAuth2Session(client_id=CLIENT_ID,
-    #                                      token=request.session[OAUTH_TOKEN])
-    # user_info = github_oauth_session.get('https://api.github.com/user').json()
-    # events = github_oauth_session.get('https://api.github.com/users/makalaaneesh/events?page=2').json()
-    #
-    #
-    # res = HttpResponse("This is your dashboard.<br><br><br> "
-    #                     "Your access token is <br><br>%s<br><br> "
-    #                     "Your info is <br><br>%s<br><br>"
-    #                     "Your events are <br><br>%s" %
-    #                     (request.session[OAUTH_TOKEN],
-    #                      user_info,
-    #                      events
-    #                      ))
 
     github_api = GithubApi(access_token=request.session[OAUTH_TOKEN])
 
     # Recent commits
     commits_n = 10
-    recent_n_commits = github_api.get_recent_comments(commits_n)
+    recent_n_commits = github_api.get_recent_commits(commits_n)
     print(recent_n_commits)
 
     # Frequent words
@@ -91,4 +76,3 @@ def dashboard(request):
         'most_frequent_hour' : most_frequent_hour
     }
     return render(request, 'dashboard.html', context)
-    # return HttpResponse("Your top comments are %s" %(recent_10_comments,))
