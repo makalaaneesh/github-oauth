@@ -98,5 +98,8 @@ class HourCounter(Counter):
         # count is the key on which to sort.
         sorted_hour_counts = self.get_sorted_items(key=lambda hc: hc[1],
                                                    reverse=True)
+
+        # returning the first item with maximum count.
+        # Does not handle duplicates
         return sorted_hour_counts[0][0]
 
