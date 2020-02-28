@@ -5,6 +5,7 @@ A simple example of a webapp using github oauth to fetch recent commits and comp
 1. Set up a virtualenv
   `virtualenv venv` and activate `source venv/bin/activate`
 2. `pip install -r requirements.txt`
+3. Create a github OAuth app with homepage URL as `http://localhost:8000/github_oauth/` and Authorization callback URL as `http://localhost:8000/github_oauth/callback`
 3. Create a file `oauth_settings.py` under `teikametrics_test/github_oauth` with the following content
 ```
 CLIENT_ID = "xyz" # the client id of the github oauth app
@@ -14,6 +15,6 @@ AUTHORIZATION_BASE_URL = 'https://github.com/login/oauth/authorize'
 TOKEN_URL = 'https://github.com/login/oauth/access_token'
 
 ```
-4. set env `OAUTHLIB_INSECURE_TRANSPORT=1` This is so that python library 'oauthlib' works fine without SSL
-5. `cd teikametrics_test` and `python manage.py runserver`
-6. Visit `http://localhost:8000/github_oauth/`
+5. set env `OAUTHLIB_INSECURE_TRANSPORT=1` This is so that python library 'oauthlib' works fine without SSL
+6. `cd teikametrics_test` and `python manage.py runserver`
+7. Visit `http://localhost:8000/github_oauth/`
